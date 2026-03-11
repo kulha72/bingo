@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Caller - Input Screen</title>
+    <link rel="stylesheet" href="styles/input.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bingo Caller</h1>
+            <p class="subtitle">Control Panel</p>
+        </header>
+
+        <div class="main-content">
+            <div class="controls-section">
+                <div class="card">
+                    <h2>Manual Selection</h2>
+                    <div class="input-group">
+                        <input type="text" id="manualInput" placeholder="e.g., B5 or N42" maxlength="3">
+                        <button id="manualSelectBtn" class="btn btn-primary">Select</button>
+                    </div>
+                    <div id="inputError" class="error-message"></div>
+                </div>
+
+                <div class="card">
+                    <h2>Random Selection</h2>
+                    <button id="randomSelectBtn" class="btn btn-success btn-large">
+                        <span class="icon">🎱</span>
+                        Pick Random Ball
+                    </button>
+                    <p class="help-text">Automatically picks an unselected ball</p>
+                </div>
+
+                <div class="card">
+                    <h2>Game Controls</h2>
+                    <button id="resetBtn" class="btn btn-warning">Reset Game</button>
+                    <button id="openDisplayBtn" class="btn btn-secondary">Open Display Screen</button>
+                </div>
+
+                <div class="card stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Balls Called:</span>
+                        <span id="calledCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Remaining:</span>
+                        <span id="remainingCount" class="stat-value">75</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-section">
+                <div class="card">
+                    <h2>Current Ball</h2>
+                    <div id="currentBall" class="current-ball-display">
+                        <span class="no-selection">No ball selected</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Called Balls History</h2>
+                    <div id="historyList" class="history-list">
+                        <p class="empty-message">No balls called yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/bingo-model.js"></script>
+    <script src="scripts/input.js"></script>
+</body>
+</html>

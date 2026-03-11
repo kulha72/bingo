@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Display - Projector Screen</title>
+    <link rel="stylesheet" href="styles/display.css">
+</head>
+<body>
+    <div class="display-container">
+        <div id="currentBallDisplay" class="current-ball-banner">
+            <div class="banner-content">
+                <span class="banner-text">Waiting for first ball...</span>
+            </div>
+        </div>
+
+        <div class="board-container">
+            <div class="column" data-letter="B">
+                <div class="column-header">B</div>
+                <div id="columnB" class="ball-grid"></div>
+            </div>
+            <div class="column" data-letter="I">
+                <div class="column-header">I</div>
+                <div id="columnI" class="ball-grid"></div>
+            </div>
+            <div class="column" data-letter="N">
+                <div class="column-header">N</div>
+                <div id="columnN" class="ball-grid"></div>
+            </div>
+            <div class="column" data-letter="G">
+                <div class="column-header">G</div>
+                <div id="columnG" class="ball-grid"></div>
+            </div>
+            <div class="column" data-letter="O">
+                <div class="column-header">O</div>
+                <div id="columnO" class="ball-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/bingo-model.js"></script>
+    <script src="scripts/display.js"></script>
+</body>
+</html>

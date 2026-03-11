@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: bingo-app
+    runtime: static
+    buildCommand: echo "No build required - serving static files"
+    staticPublishPath: ./bingo-app
+    routes:
+      - type: rewrite
+        source: /
+        destination: /index.html
