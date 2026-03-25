@@ -27,14 +27,34 @@ body {
 .current-ball-banner {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px 30px;
     margin-bottom: 30px;
     min-height: 150px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
+    gap: 20px;
+}
+
+.banner-logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-kiwanis {
+    height: 120px;
+    width: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.logo-tecumseh {
+    height: 100px;
+    width: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }
 
 .current-ball-banner.pulse {
@@ -58,6 +78,8 @@ body {
     display: flex;
     align-items: center;
     gap: 40px;
+    flex: 1;
+    justify-content: center;
 }
 
 .banner-ball {
@@ -250,25 +272,33 @@ body {
         width: 120px;
         height: 120px;
     }
-    
+
     .banner-letter {
         font-size: 2em;
     }
-    
+
     .banner-number {
         font-size: 2.5em;
     }
-    
+
     .banner-text {
         font-size: 2.5em;
     }
-    
+
     .column-header {
         font-size: 2.5em;
     }
-    
+
     .ball-number-display {
         font-size: 1.5em;
+    }
+
+    .logo-kiwanis {
+        height: 100px;
+    }
+
+    .logo-tecumseh {
+        height: 80px;
     }
 }
 
@@ -292,11 +322,25 @@ body {
 }
 
 @media (max-width: 800px) {
+    .current-ball-banner {
+        flex-wrap: wrap;
+    }
+
     .banner-content {
         flex-direction: column;
         gap: 20px;
+        order: -1;
+        flex-basis: 100%;
     }
-    
+
+    .logo-kiwanis {
+        height: 70px;
+    }
+
+    .logo-tecumseh {
+        height: 55px;
+    }
+
     .column-header {
         font-size: 2em;
         padding: 10px;
