@@ -63,6 +63,8 @@ class BingoModel {
     handleMessage(data) {
         if (data.type === 'selection') {
             this.applySelection(data.ball);
+        } else if (data.type === 'unselect') {
+            this.applyUnselect(data.ballId);
         } else if (data.type === 'reset') {
             this.applyReset();
         } else if (data.type === 'sync-request') {
@@ -132,6 +134,40 @@ class BingoModel {
         this.saveState();
 
         return { success: true, ball: ball };
+    }
+
+    // Remove a ball from the selected list (undo)
+    unselectBall(ballId) {
+        const ball = this.balls.find(b => b.id === ballId);
+        if (!ball || !ball.selected) {
+            return { success: false, error: 'Ball not selected' };
+        }
+
+        ball.selected = false;
+        ball.timestamp = null;
+        this.selectedBalls = this.selectedBalls.filter(b => b.id !== ballId);
+        this.currentBall = this.selectedBalls.length > 0
+            ? this.selectedBalls[this.selectedBalls.length - 1]
+            : null;
+
+        this.broadcast({ type: 'unselect', ballId });
+        this.saveState();
+
+        return { success: true };
+    }
+
+    // Apply unselect from broadcast (without re-broadcasting)
+    applyUnselect(ballId) {
+        const ball = this.balls.find(b => b.id === ballId);
+        if (ball && ball.selected) {
+            ball.selected = false;
+            ball.timestamp = null;
+            this.selectedBalls = this.selectedBalls.filter(b => b.id !== ballId);
+            this.currentBall = this.selectedBalls.length > 0
+                ? this.selectedBalls[this.selectedBalls.length - 1]
+                : null;
+            this.saveState();
+        }
     }
 
     // Apply selection from broadcast

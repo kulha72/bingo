@@ -157,6 +157,7 @@ function updateHistory() {
                     <span class="history-ball-text">${ball.id}</span>
                 </div>
                 <span class="history-time">${formatTime(ball.timestamp)}</span>
+                <button class="undo-btn" onclick="handleUndoBall('${ball.id}')" title="Remove ${ball.id}">&times;</button>
             </div>
         `;
     }).join('');
@@ -181,6 +182,13 @@ function clearError() {
     const errorDiv = document.getElementById('inputError');
     errorDiv.textContent = '';
     errorDiv.style.display = 'none';
+}
+
+function handleUndoBall(ballId) {
+    const result = bingoGame.unselectBall(ballId);
+    if (result.success) {
+        updateUI();
+    }
 }
 
 function flashSuccess() {

@@ -80,10 +80,37 @@ function setupMessageListener() {
 function handleMessage(data) {
     if (data.type === 'selection') {
         handleBallSelection(data.ball);
+    } else if (data.type === 'unselect') {
+        handleBallUnselect(data.ballId);
     } else if (data.type === 'reset') {
         handleReset();
     } else if (data.type === 'full-sync') {
         handleFullSync(data);
+    }
+}
+
+function handleBallUnselect(ballId) {
+    bingoGame.applyUnselect(ballId);
+
+    // Remove the ball element from the board
+    const ballElement = document.getElementById(`ball-${ballId}`);
+    if (ballElement) {
+        ballElement.remove();
+    }
+
+    // Update the banner to show the new current ball (or reset it)
+    if (bingoGame.currentBall) {
+        // Re-highlight the new most-recent ball
+        document.querySelectorAll('.recent-call').forEach(el => el.classList.remove('recent-call'));
+        const newCurrent = document.getElementById(`ball-${bingoGame.currentBall.id}`);
+        if (newCurrent) newCurrent.classList.add('recent-call');
+        updateCurrentBallBanner(bingoGame.currentBall);
+    } else {
+        document.querySelectorAll('.recent-call').forEach(el => el.classList.remove('recent-call'));
+        const banner = document.getElementById('currentBallDisplay');
+        const content = banner.querySelector('.banner-content');
+        content.innerHTML = `<span class="banner-text">Waiting for first ball...</span>`;
+        banner.classList.remove('pulse');
     }
 }
 
