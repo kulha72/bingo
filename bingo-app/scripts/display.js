@@ -133,19 +133,18 @@ function animateBallSelection(ballElement, ball) {
 function updateCurrentBallBanner(ball) {
     const banner = document.getElementById('currentBallDisplay');
     const color = BingoModel.getColorForLetter(ball.letter);
-    
-    banner.innerHTML = `
-        <div class="banner-content">
-            <div class="banner-ball" style="background-color: ${color}">
-                <span class="banner-letter">${ball.letter}</span>
-                <span class="banner-number">${ball.number}</span>
-            </div>
-            <div class="banner-text">
-                <span class="ball-call">${ball.letter}-${ball.number}</span>
-            </div>
+
+    const content = banner.querySelector('.banner-content');
+    content.innerHTML = `
+        <div class="banner-ball" style="background-color: ${color}">
+            <span class="banner-letter">${ball.letter}</span>
+            <span class="banner-number">${ball.number}</span>
+        </div>
+        <div class="banner-text">
+            <span class="ball-call">${ball.letter}-${ball.number}</span>
         </div>
     `;
-    
+
     // Trigger banner animation
     banner.classList.remove('pulse');
     void banner.offsetWidth; // Force reflow
@@ -165,11 +164,8 @@ function handleReset() {
     
     // Reset banner
     const banner = document.getElementById('currentBallDisplay');
-    banner.innerHTML = `
-        <div class="banner-content">
-            <span class="banner-text">Waiting for first ball...</span>
-        </div>
-    `;
+    const content = banner.querySelector('.banner-content');
+    content.innerHTML = `<span class="banner-text">Waiting for first ball...</span>`;
     banner.classList.remove('pulse');
 }
 

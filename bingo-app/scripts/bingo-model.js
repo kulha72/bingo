@@ -163,17 +163,7 @@ class BingoModel {
     // Validate input format and range
     validateInput(input) {
         input = input.toUpperCase().trim();
-        
-        // Parse letter and number
-        const match = input.match(/^([BINGO])(\d+)$/);
-        if (!match) {
-            return { valid: false, error: 'Invalid format. Use letter + number (e.g., B5, N42)' };
-        }
 
-        const letter = match[1];
-        const number = parseInt(match[2]);
-
-        // Validate number range for each letter
         const ranges = {
             'B': [1, 15],
             'I': [16, 30],
@@ -182,12 +172,28 @@ class BingoModel {
             'O': [61, 75]
         };
 
-        const [min, max] = ranges[letter];
-        if (number < min || number > max) {
-            return { 
-                valid: false, 
-                error: `${letter} must be between ${min} and ${max}` 
-            };
+        let letter, number;
+
+        // Accept number-only input (e.g., "5" or "42") — infer letter from range
+        const numberOnlyMatch = input.match(/^(\d+)$/);
+        if (numberOnlyMatch) {
+            number = parseInt(numberOnlyMatch[1]);
+            letter = Object.keys(ranges).find(l => number >= ranges[l][0] && number <= ranges[l][1]);
+            if (!letter) {
+                return { valid: false, error: 'Number must be between 1 and 75' };
+            }
+        } else {
+            // Accept letter + number input (e.g., "B5" or "N42")
+            const match = input.match(/^([BINGO])(\d+)$/);
+            if (!match) {
+                return { valid: false, error: 'Invalid format. Enter a number (e.g., 5, 42) or letter + number (e.g., B5, N42)' };
+            }
+            letter = match[1];
+            number = parseInt(match[2]);
+            const [min, max] = ranges[letter];
+            if (number < min || number > max) {
+                return { valid: false, error: `${letter} must be between ${min} and ${max}` };
+            }
         }
 
         return { valid: true, ballId: `${letter}${number}` };
